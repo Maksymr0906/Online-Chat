@@ -8,7 +8,7 @@ namespace OnlineChat.Repositories.Implementation
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly ChatDbContext _context;
-        private readonly DbSet<TEntity> _entities;
+        protected readonly DbSet<TEntity> _entities;
 
         public GenericRepository(ChatDbContext context)
         {

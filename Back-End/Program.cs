@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineChat.Data;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using OnlineChat.Repositories.Implementation;
+using OnlineChat.Repositories.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +11,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IChatRepository), typeof(ChatRepository));
 builder.Services.AddDbContext<ChatDbContext>(options =>
 {
     var serverVersion = new MySqlServerVersion(new Version(8, 3, 0));
     options.UseMySql(builder.Configuration.GetConnectionString("OnlineChatConnectionString"), serverVersion);
 });
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 

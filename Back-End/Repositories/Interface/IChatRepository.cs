@@ -2,7 +2,7 @@
 
 namespace OnlineChat.Repositories.Interface
 {
-    public interface IChatRepository
+    public interface IChatRepository : IRepository<Chat>
     {
         Task<ICollection<Chat>> GetAllAsync();
         Task<Chat?> GetByIdAsync(Guid id);

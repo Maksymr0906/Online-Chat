@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using OnlineChat.Data;
 using OnlineChat.Repositories.Implementation;
 using OnlineChat.Repositories.Interface;
+using OnlineChat.Services.Implementation;
+using OnlineChat.Services.Interface;
+using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IChatRepository), typeof(ChatRepository));
+builder.Services.AddScoped(typeof(IChatService), typeof(ChatService));
+builder.Services.AddScoped(typeof(IMessageService), typeof(MessageService));
+builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
 builder.Services.AddDbContext<ChatDbContext>(options =>
 {
     var serverVersion = new MySqlServerVersion(new Version(8, 3, 0));

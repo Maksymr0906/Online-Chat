@@ -16,12 +16,13 @@ namespace OnlineChat.Repositories.Implementation
             _entities = _context.Set<TEntity>();
         }
 
-        public async Task CreateAsync(TEntity entity)
+        public async Task<TEntity> CreateAsync(TEntity entity)
         {
             ArgumentNullException.ThrowIfNull(entity);
 
             await _entities.AddAsync(entity);
             await _context.SaveChangesAsync();
+            return entity;
         }
 
         public async Task<ICollection<TEntity>> GetAllAsync()
@@ -47,14 +48,6 @@ namespace OnlineChat.Repositories.Implementation
             _context.Entry(existingEntity).CurrentValues.SetValues(entity);
             await _context.SaveChangesAsync();
             return existingEntity;
-        }
-
-        public async Task<TEntity?> DeleteAsync(TEntity entity)
-        {
-            ArgumentNullException.ThrowIfNull(entity);
-            _context.Remove(entity);
-            await _context.SaveChangesAsync();
-            return entity;
         }
 
         public async Task<TEntity?> DeleteByIdAsync(Guid id)

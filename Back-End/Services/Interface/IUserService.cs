@@ -1,14 +1,13 @@
-﻿using OnlineChat.Models.Domain;
+﻿using OnlineChat.Models.Dto.User;
 
 namespace OnlineChat.Services.Interface
 {
     public interface IUserService
     {
-        Task CreateUserAsync(User user);
-        Task<ICollection<User>> GetUsersAsync();
-        Task<User?> GetUserByIdAsync(Guid id);
-        Task<User?> UpdateUserAsync(User user);
-        Task<User?> DeleteUserAsync(User user);
-        Task<User?> DeleteUserByIdAsync(Guid id);
+        Task<UserDto> CreateUserAsync(CreateUserRequestDto request);
+        Task<ICollection<UserDto>> GetUsersAsync();
+        Task<UserDto?> GetUserByIdAsync(Guid id);
+        Task<UserDto?> UpdateUserAsync(UpdateUserRequestDto request);
+        Task<UserDto?> DeleteUserByIdAsync(Guid id);
     }
 }

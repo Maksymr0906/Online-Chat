@@ -5,7 +5,7 @@ using OnlineChat.Repositories.Interface;
 
 namespace OnlineChat.Repositories.Implementation
 {
-    public class ChatRepository : GenericRepository<Chat>, IChatRepository
+    public class ChatRepository : GenericRepository<Chat>
     {
         public ChatRepository(ChatDbContext context) 
             : base(context)

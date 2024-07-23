@@ -1,7 +1,4 @@
-﻿using OnlineChat.Models.Dto.Chat;
-using OnlineChat.Models.Dto.Message;
-
-namespace OnlineChat.Models.Dto.User
+﻿namespace OnlineChat.Models.Dto.User
 {
     public class CreateUserRequestDto
     {

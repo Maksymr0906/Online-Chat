@@ -1,4 +1,6 @@
-﻿using OnlineChat.Models.Domain;
+﻿using AutoMapper;
+using OnlineChat.Models.Domain;
+using OnlineChat.Models.Dto.Message;
 using OnlineChat.Repositories.Interface;
 using OnlineChat.Services.Interface;
 
@@ -6,41 +8,51 @@ namespace OnlineChat.Services.Implementation
 {
     public class MessageService : IMessageService
     {
-        private readonly IRepository<Message> _repository;
+        private readonly IMessageRepository _repository;
+        private readonly IMapper _mapper;
 
-        public MessageService(IRepository<Message> repository)
+        public MessageService(IMessageRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task CreateMessageAsync(Message message)
+        public async Task<MessageDto> CreateMessageAsync(CreateMessageRequestDto request)
         {
-            await _repository.CreateAsync(message);
+            var message = _mapper.Map<Message>(request);
+            message = await _repository.CreateAsync(message);
+            return _mapper.Map<MessageDto>(message);
         }
 
-        public async Task<Message?> GetMessageByIdAsync(Guid id)
+        public async Task<ICollection<MessageDto>> GetMessagesAsync()
         {
-            return await _repository.GetByIdAsync(id);
+            var messages = await _repository.GetAllAsync();
+            return _mapper.Map<ICollection<MessageDto>>(messages);
+        }
+        public async Task<MessageDto?> GetMessageByIdAsync(Guid id)
+        {
+            var message = await _repository.GetByIdAsync(id);
+            return message != null? _mapper.Map<MessageDto>(message) : null;
         }
 
-        public async Task<ICollection<Message>> GetMessagesAsync()
+        public async Task<MessageDto?> UpdateMessageAsync(Guid id, UpdateMessageRequestDto request)
         {
-            return await _repository.GetAllAsync();
+            var message = await _repository.GetByIdAsync(id);
+            if (message == null)
+            {
+                throw new KeyNotFoundException($"Message with ID {id} was not found.");
+            }
+
+            _mapper.Map(request, message);
+            message = await _repository.UpdateAsync(message);
+
+            return _mapper.Map<MessageDto>(message);
         }
 
-        public async Task<Message?> UpdateMessageAsync(Message message)
+        public async Task<MessageDto?> DeleteMessageByIdAsync(Guid id)
         {
-            return await _repository.UpdateAsync(message);
-        }
-
-        public async Task<Message?> DeleteMessageAsync(Message message)
-        {
-            return await _repository.DeleteAsync(message);
-        }
-
-        public async Task<Message?> DeleteMessageByIdAsync(Guid id)
-        {
-            return await _repository.DeleteByIdAsync(id);
+            var message = await _repository.DeleteByIdAsync(id);
+            return _mapper.Map<MessageDto>(message);
         }
     }
 }

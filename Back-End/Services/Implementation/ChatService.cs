@@ -1,4 +1,6 @@
-﻿using OnlineChat.Models.Domain;
+﻿using AutoMapper;
+using OnlineChat.Models.Domain;
+using OnlineChat.Models.Dto.Chat;
 using OnlineChat.Repositories.Interface;
 using OnlineChat.Services.Interface;
 
@@ -7,40 +9,50 @@ namespace OnlineChat.Services.Implementation
     public class ChatService : IChatService
     {
         private readonly IChatRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ChatService(IChatRepository repository)
+        public ChatService(IChatRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task CreateChatAsync(Chat chat)
+        public async Task<ChatDto> CreateChatAsync(CreateChatRequestDto request)
         {
-            await _repository.CreateAsync(chat);
+            var chat = _mapper.Map<Chat>(request);
+            chat = await _repository.CreateAsync(chat);
+            return _mapper.Map<ChatDto>(chat);
         }
 
-        public async Task<Chat?> GetChatByIdAsync(Guid id)
+        public async Task<ICollection<ChatDto>> GetChatsAsync()
         {
-            return await _repository.GetByIdAsync(id);
+            var chats = await _repository.GetAllAsync();
+            return _mapper.Map<ICollection<ChatDto>>(chats);
         }
 
-        public async Task<ICollection<Chat>> GetChatsAsync()
+        public async Task<ChatDto?> GetChatByIdAsync(Guid id)
         {
-            return await _repository.GetAllAsync();
+            var chat = await _repository.GetByIdAsync(id);
+            return chat != null? _mapper.Map<ChatDto>(chat) : null;
         }
 
-        public async Task<Chat?> UpdateChatAsync(Chat chat)
+        public async Task<ChatDto?> UpdateChatAsync(Guid id, UpdateChatRequestDto request)
         {
-            return await _repository.UpdateAsync(chat);
+            var chat = await _repository.GetByIdAsync(id);
+            if (chat == null)
+            {
+                throw new KeyNotFoundException($"Chat with ID {id} was not found.");
+            }
+
+            _mapper.Map(request, chat);
+            chat = await _repository.UpdateAsync(chat);
+            return _mapper.Map<ChatDto>(chat);
         }
 
-        public async Task<Chat?> DeleteChatAsync(Chat chat)
+        public async Task<ChatDto?> DeleteChatByIdAsync(Guid id)
         {
-            return await _repository.DeleteAsync(chat);
-        }
-
-        public async Task<Chat?> DeleteChatByIdAsync(Guid id)
-        {
-            return await _repository.DeleteByIdAsync(id);
+            var chat = await _repository.DeleteByIdAsync(id);
+            return _mapper.Map<ChatDto>(chat);
         }
     }
 }

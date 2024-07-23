@@ -7,7 +7,7 @@ namespace OnlineChat.Services.Interface
         Task<UserDto> CreateUserAsync(CreateUserRequestDto request);
         Task<ICollection<UserDto>> GetUsersAsync();
         Task<UserDto?> GetUserByIdAsync(Guid id);
-        Task<UserDto?> UpdateUserAsync(UpdateUserRequestDto request);
+        Task<UserDto?> UpdateUserAsync(Guid id, UpdateUserRequestDto request);
         Task<UserDto?> DeleteUserByIdAsync(Guid id);
     }
 }

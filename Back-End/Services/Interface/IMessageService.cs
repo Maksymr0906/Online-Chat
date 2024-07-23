@@ -1,13 +1,13 @@
-﻿using OnlineChat.Models.Domain;
+﻿using OnlineChat.Models.Dto.Message;
 
 namespace OnlineChat.Services.Interface
 {
     public interface IMessageService
     {
-        Task CreateMessageAsync(Message message);
-        Task<ICollection<Message>> GetMessagesAsync();
-        Task<Message?> GetMessageByIdAsync(Guid id);
-        Task<Message?> UpdateMessageAsync(Message message);
-        Task<Message?> DeleteMessageByIdAsync(Guid id);
+        Task<MessageDto> CreateMessageAsync(CreateMessageRequestDto request);
+        Task<ICollection<MessageDto>> GetMessagesAsync();
+        Task<MessageDto?> GetMessageByIdAsync(Guid id);
+        Task<MessageDto?> UpdateMessageAsync(Guid id, UpdateMessageRequestDto request);
+        Task<MessageDto?> DeleteMessageByIdAsync(Guid id);
     }
 }

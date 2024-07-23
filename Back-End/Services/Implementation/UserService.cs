@@ -1,46 +1,59 @@
 ﻿using OnlineChat.Models.Domain;
+using OnlineChat.Models.Dto.User;
 using OnlineChat.Repositories.Interface;
 using OnlineChat.Services.Interface;
+using AutoMapper;
 
 namespace OnlineChat.Services.Implementation
 {
     public class UserService : IUserService
     {
-        private readonly IRepository<User> _repository;
+        private readonly IUserRepository _repository;
+        private readonly IMapper _mapper;
 
-        public UserService(IRepository<User> repository)
+        public UserService(IUserRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task CreateUserAsync(User user)
+        public async Task<UserDto> CreateUserAsync(CreateUserRequestDto request)
         {
-            await _repository.CreateAsync(user);
-        }
-        
-        public async Task<User?> GetUserByIdAsync(Guid id)
-        {
-            return await _repository.GetByIdAsync(id);
+            var user = _mapper.Map<User>(request);
+            user = await _repository.CreateAsync(user);
+            return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<ICollection<User>> GetUsersAsync()
+        public async Task<ICollection<UserDto>> GetUsersAsync()
         {
-            return await _repository.GetAllAsync();
+            var users = await _repository.GetAllAsync();
+            return _mapper.Map<ICollection<UserDto>>(users);
         }
 
-        public async Task<User?> UpdateUserAsync(User user)
+        public async Task<UserDto?> GetUserByIdAsync(Guid id)
         {
-            return await _repository.UpdateAsync(user);
+            var user = await _repository.GetByIdAsync(id);
+            return user != null ? _mapper.Map<UserDto>(user) : null;
         }
 
-        public async Task<User?> DeleteUserAsync(User user)
+        public async Task<UserDto?> UpdateUserAsync(Guid id, UpdateUserRequestDto request)
         {
-            return await _repository.DeleteAsync(user);
+            var user = await _repository.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with ID {id} was not found.");
+            }
+
+            _mapper.Map(request, user);
+            user = await _repository.UpdateAsync(user);
+
+            return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<User?> DeleteUserByIdAsync(Guid id)
+        public async Task<UserDto?> DeleteUserByIdAsync(Guid id)
         {
-            return await _repository.DeleteByIdAsync(id);
+            var user = await _repository.DeleteByIdAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
     }
 }

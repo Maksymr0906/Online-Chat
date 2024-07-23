@@ -2,7 +2,6 @@
 using OnlineChat.Data;
 using OnlineChat.Models.Domain;
 using OnlineChat.Repositories.Interface;
-using System;
 
 namespace OnlineChat.Repositories.Implementation
 {

@@ -20,11 +20,6 @@ namespace OnlineChat.Controllers
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
         {
             var response = await _service.CreateUserAsync(request);
-            if (response == null)
-            {
-                return NotFound();
-            }
-
             return Ok(response);
         }
 
@@ -40,8 +35,7 @@ namespace OnlineChat.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("{id:Guid}")]
+        [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetUserById([FromRoute] Guid id)
         {
             var response = await _service.GetUserByIdAsync(id);
@@ -53,8 +47,7 @@ namespace OnlineChat.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
-        [Route("{id:Guid}")]
+        [HttpPut("{id:Guid}")]
         public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserRequestDto request)
         {
             var response = await _service.UpdateUserAsync(id, request);
@@ -66,8 +59,7 @@ namespace OnlineChat.Controllers
             return Ok(response);
         }
 
-        [HttpDelete]
-        [Route("{id:Guid}")]
+        [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteUserById([FromRoute] Guid id)
         {
             var response = await _service.DeleteUserByIdAsync(id);

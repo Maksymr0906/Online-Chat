@@ -46,13 +46,13 @@ namespace OnlineChat.Services.Implementation
 
             _mapper.Map(request, chat);
             chat = await _repository.UpdateAsync(chat);
-            return _mapper.Map<ChatDto>(chat);
+            return chat != null ? _mapper.Map<ChatDto>(chat) : null;
         }
 
         public async Task<ChatDto?> DeleteChatByIdAsync(Guid id)
         {
             var chat = await _repository.DeleteByIdAsync(id);
-            return _mapper.Map<ChatDto>(chat);
+            return chat != null ? _mapper.Map<ChatDto>(chat) : null;
         }
     }
 }

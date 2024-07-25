@@ -70,5 +70,17 @@ namespace OnlineChat.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetUserByName([FromRoute] string name)
+        {
+            var response = await _service.GetUserByName(name);
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
     }
 }

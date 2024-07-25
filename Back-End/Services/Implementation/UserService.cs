@@ -47,13 +47,19 @@ namespace OnlineChat.Services.Implementation
             _mapper.Map(request, user);
             user = await _repository.UpdateAsync(user);
 
-            return _mapper.Map<UserDto>(user);
+            return user != null ? _mapper.Map<UserDto>(user) : null;
         }
 
         public async Task<UserDto?> DeleteUserByIdAsync(Guid id)
         {
             var user = await _repository.DeleteByIdAsync(id);
-            return _mapper.Map<UserDto>(user);
+            return user != null ? _mapper.Map<UserDto>(user) : null;
+        }
+
+        public async Task<UserDto?> GetUserByName(string name)
+        {
+            var user = await _repository.GetByName(name);
+            return user != null ? _mapper.Map<UserDto>(user) : null;
         }
     }
 }

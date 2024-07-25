@@ -9,5 +9,6 @@ namespace OnlineChat.Services.Interface
         Task<UserDto?> GetUserByIdAsync(Guid id);
         Task<UserDto?> UpdateUserAsync(Guid id, UpdateUserRequestDto request);
         Task<UserDto?> DeleteUserByIdAsync(Guid id);
+        Task<UserDto?> GetUserByName(string name);
     }
 }

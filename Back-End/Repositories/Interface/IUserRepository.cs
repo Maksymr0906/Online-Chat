@@ -9,5 +9,6 @@ namespace OnlineChat.Repositories.Interface
         Task<User?> GetByIdAsync(Guid id);
         Task<User?> UpdateAsync(User user);
         Task<User?> DeleteByIdAsync(Guid id);
+        Task<User?> GetByName(string name);
     }
 }

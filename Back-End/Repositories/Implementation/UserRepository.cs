@@ -62,5 +62,10 @@ namespace OnlineChat.Repositories.Implementation
             await _context.SaveChangesAsync();
             return existingUser;
         }
+
+        public async Task<User?> GetByName(string name)
+        {
+            return await _users.FirstOrDefaultAsync(x => x.UserName == name);
+        }
     }
 }

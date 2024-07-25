@@ -5,13 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './features/home/home.component';
-import { ChatListComponent } from './features/chat-list/chat-list.component';
+import { ChatListComponent } from './features/chat/chat-list/chat-list.component';
+import { AddChatComponent } from './features/chat/add-chat/add-chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ChatListComponent,
+    AddChatComponent,
   ],
   imports: [
     BrowserModule,

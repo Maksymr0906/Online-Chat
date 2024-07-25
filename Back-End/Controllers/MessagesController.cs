@@ -6,11 +6,11 @@ namespace OnlineChat.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MessageController : ControllerBase
+    public class MessagesController : ControllerBase
     {
         private readonly IMessageService _service;
 
-        public MessageController(IMessageService service)
+        public MessagesController(IMessageService service)
         {
             _service = service;
         }

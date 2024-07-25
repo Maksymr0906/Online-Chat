@@ -14,19 +14,19 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   addUser(model: AddUserRequest): Observable<User> {
-    return this.http.post<User>(`${environment.apiBaseUrl}/api/user`, model);
+    return this.http.post<User>(`${environment.apiBaseUrl}/api/users`, model);
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.apiBaseUrl}/api/user`);
+    return this.http.get<User[]>(`${environment.apiBaseUrl}/api/users`);
   }
 
   getUserById(id: string): Observable<User> {
-    return this.http.get<User>(`${environment.apiBaseUrl}/api/user/${id}`);
+    return this.http.get<User>(`${environment.apiBaseUrl}/api/users/${id}`);
   }
 
   getUserByName(name: string): Observable<any> {
-    return this.http.get<User>(`${environment.apiBaseUrl}/api/user/${name}`).pipe(
+    return this.http.get<User>(`${environment.apiBaseUrl}/api/users/${name}`).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
           return of(null);

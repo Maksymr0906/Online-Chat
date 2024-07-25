@@ -7,11 +7,11 @@ namespace OnlineChat.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _service;
 
-        public UserController(IUserService service)
+        public UsersController(IUserService service)
         {
             _service = service;
         }

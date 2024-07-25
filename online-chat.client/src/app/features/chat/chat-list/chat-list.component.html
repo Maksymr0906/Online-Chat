@@ -1,0 +1,28 @@
+<div class="container">
+  <h1 class="mt-3 display-4">Chats</h1>
+  <ng-container *ngIf="chats$ | async as chats">
+    <table class="table table-bordered mt-3">
+      <thead>
+        <th>Chat name</th>
+        <th>Creator</th>
+        <th>Participants</th>
+        <th>Messages</th>
+      </thead>
+      <tbody *ngFor="let chat of chats">
+        <tr class="">
+          <td>{{ chat.chatName }}</td>
+          <td>{{ chat.creatorUserId }}</td>
+          <td>{{ chat.participantIds.length }}</td>
+          <td>{{ chat.messageIds.length }}</td>
+          <button
+            type="button"
+            class="btn btn-primary"
+            [routerLink]="['/chats', chat.id]"
+          >
+            Join
+          </button>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>

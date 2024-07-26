@@ -1,32 +1,30 @@
-<div class="container">
-  <ng-container *ngIf="chats$ | async as chats">
-    <table class="table mt-3 table-striped">
-      <thead class="table-light">
-        <tr>
-          <th>Chat name</th>
-          <th>Creator</th>
-          <th>Participants</th>
-          <th>Messages</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let chat of chats">
-        <tr>
-          <td>{{ chat.chatName }}</td>
-          <td>{{ chat.creatorUserName }}</td>
-          <td>{{ chat.participantIds.length }}</td>
-          <td>{{ chat.messageIds.length }}</td>
-          <td>
-            <button
-              type="button"
-              class="btn btn-primary"
-              [routerLink]="['/chats', chat.id]"
-            >
-              Join
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </ng-container>
-</div>
+<ng-container *ngIf="chats$ | async as chats">
+  <table class="table mt-3 table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>Chat name</th>
+        <th>Creator</th>
+        <th>Participants</th>
+        <th>Messages</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let chat of chats">
+      <tr>
+        <td>{{ chat.chatName }}</td>
+        <td>{{ chat.creatorUserName }}</td>
+        <td>{{ chat.participantIds.length }}</td>
+        <td>{{ chat.messageIds.length }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary"
+            [routerLink]="['/chats', chat.id]"
+          >
+            Join
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

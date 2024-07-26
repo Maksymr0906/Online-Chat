@@ -18,22 +18,20 @@ export class HomeComponent implements OnDestroy {
     this.name = '';
   }
 
-  enterChat() {
-    this.getUserByNameSubscription = this.userService.getUserByName(this.name).subscribe({
-      next: (response) => {
-        if (!response) {
-          const model: AddUserRequest = {
-            userName: this.name
-          };
+  joinChat() {
+    this.userService.getUserByName(this.name).subscribe(user => {
+      if (user) {
+        this.router.navigate([`/${user.id}`]);
+      } else {
+        const addUserRequest: AddUserRequest = {
+          userName: this.name
+        };
 
-          this.addUserSubscription = this.userService.addUser(model).subscribe();
-
-          console.log("New user created");
-        }
-
-        this.router.navigateByUrl('chats');
+        this.userService.addUser(addUserRequest).subscribe(newUser => {
+          this.router.navigate([`/${newUser.id}`]);
+        });
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {

@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-chat.component.css']
 })
 export class AddChatComponent {
-
+  onSubmit() {
+    
+  }
 }

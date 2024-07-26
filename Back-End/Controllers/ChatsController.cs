@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineChat.Models.Dto.Chat;
+using OnlineChat.Services.Implementation;
 using OnlineChat.Services.Interface;
 
 namespace OnlineChat.Controllers
@@ -63,6 +64,18 @@ namespace OnlineChat.Controllers
         {
             var response = await _service.DeleteChatByIdAsync(id);
             if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("with-creators")]
+        public async Task<IActionResult> GetChatsWithCreators()
+        {
+            var response = await _service.GetChatsWithCreatorAsync();
+            if (response.Count == 0)
             {
                 return NotFound();
             }

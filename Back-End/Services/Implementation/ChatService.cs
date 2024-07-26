@@ -54,5 +54,11 @@ namespace OnlineChat.Services.Implementation
             var chat = await _repository.DeleteByIdAsync(id);
             return chat != null ? _mapper.Map<ChatDto>(chat) : null;
         }
+
+        public async Task<ICollection<ChatWithCreatorDto>> GetChatsWithCreatorAsync()
+        {
+            var chats = await _repository.GetAllAsync();
+            return _mapper.Map<ICollection<ChatWithCreatorDto>>(chats);
+        }
     }
 }

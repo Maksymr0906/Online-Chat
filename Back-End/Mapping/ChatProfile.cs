@@ -21,6 +21,11 @@ namespace OnlineChat.Mapping
             CreateMap<UpdateChatRequestDto, Chat>()
                 .ForMember(dest => dest.Messages, opt => opt.Ignore())
                 .ForMember(dest => dest.Participants, opt => opt.Ignore());
+
+            CreateMap<Chat, ChatWithCreatorDto>()
+               .ForMember(dest => dest.CreatorUserName, opt => opt.MapFrom(src => src.User.UserName))
+               .ForMember(dest => dest.MessageIds, opt => opt.MapFrom(src => src.Messages.Select(m => m.Id)))
+               .ForMember(dest => dest.ParticipantIds, opt => opt.MapFrom(src => src.Participants.Select(p => p.Id)));
         }
     }
 }

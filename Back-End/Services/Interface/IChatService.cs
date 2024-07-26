@@ -9,5 +9,6 @@ namespace OnlineChat.Services.Interface
         Task<ChatDto?> GetChatByIdAsync(Guid id);
         Task<ChatDto?> UpdateChatAsync(Guid id, UpdateChatRequestDto request);
         Task<ChatDto?> DeleteChatByIdAsync(Guid id);
+        Task<ICollection<ChatWithCreatorDto>> GetChatsWithCreatorAsync();
     }
 }

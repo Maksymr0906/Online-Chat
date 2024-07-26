@@ -26,6 +26,7 @@ namespace OnlineChat.Repositories.Implementation
         public async Task<ICollection<Chat>> GetAllAsync()
         {
             return await _chats
+                .Include(x => x.User)
                 .Include(x => x.Participants)
                 .Include(x => x.Messages)
                 .ToListAsync();
@@ -34,6 +35,7 @@ namespace OnlineChat.Repositories.Implementation
         public async Task<Chat?> GetByIdAsync(Guid id)
         {
             return await _chats
+                .Include(x => x.User)
                 .Include(x => x.Participants)
                 .Include(x => x.Messages)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -41,7 +43,7 @@ namespace OnlineChat.Repositories.Implementation
 
         public async Task<Chat?> UpdateAsync(Chat chat)
         {
-            var existingChat = await _chats.Include(x => x.Participants).Include(x => x.Messages).FirstOrDefaultAsync(x => x.Id == chat.Id);
+            var existingChat = await _chats.Include(x => x.User).Include(x => x.Participants).Include(x => x.Messages).FirstOrDefaultAsync(x => x.Id == chat.Id);
             if (existingChat == null)
             {
                 throw new KeyNotFoundException($"Chat with ID {chat.Id} not found.");
@@ -54,7 +56,7 @@ namespace OnlineChat.Repositories.Implementation
 
         public async Task<Chat?> DeleteByIdAsync(Guid id)
         {
-            var existingChat = await _chats.Include(x => x.Participants).Include(x => x.Messages).FirstOrDefaultAsync(x => x.Id == id);
+            var existingChat = await _chats.Include(x => x.User).Include(x => x.Participants).Include(x => x.Messages).FirstOrDefaultAsync(x => x.Id == id);
             if (existingChat == null)
             {
                 throw new KeyNotFoundException($"Chat with ID {id} not found.");

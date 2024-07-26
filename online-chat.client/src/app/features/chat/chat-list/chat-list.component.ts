@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ChatService } from 'src/app/core/services/chat/chat.service';
-import { UserService } from 'src/app/core/services/user/user.service';
-import { Chat } from 'src/app/shared/models/chat/chat.model';
+import { ChatWithCreator } from 'src/app/shared/models/chat/chat-with-creator.model';
+
 
 @Component({
   selector: 'app-chat-list',
@@ -10,13 +10,18 @@ import { Chat } from 'src/app/shared/models/chat/chat.model';
   styleUrls: ['./chat-list.component.css']
 })
 export class ChatListComponent implements OnInit {
-  chats$?: Observable<Chat[]>;
+  chats$?: Observable<ChatWithCreator[]>;
 
   constructor(private chatService: ChatService) {
     
   }
 
   ngOnInit(): void {
-    this.chats$ = this.chatService.getAllChats();
+    this.chats$ = this.chatService.getAllChatsWithCreators();
+    this.chatService.getAllChatsWithCreators().subscribe({
+      next: (response) => {
+        console.log(response);
+      }
+    })
   }
 }

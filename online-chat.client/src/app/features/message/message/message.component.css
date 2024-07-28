@@ -1,0 +1,26 @@
+/* message.component.css */
+.message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.message-sender {
+  color: #007bff;
+}
+
+.message-timestamp {
+  color: #999;
+}
+
+.message-content {
+  font-size: 14px;
+}

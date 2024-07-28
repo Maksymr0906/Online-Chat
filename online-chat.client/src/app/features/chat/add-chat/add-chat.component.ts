@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/core/services/chat/chat.service';
 import { AddChatRequest } from 'src/app/shared/models/chat/add-chat-request.model';
@@ -14,7 +14,9 @@ export class AddChatComponent implements OnInit, OnDestroy {
   model: AddChatRequest;
   userId: string | null = null;
 
-  constructor(private chatService: ChatService, private route: ActivatedRoute) {
+  constructor(private chatService: ChatService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.model = {
       chatName: '',
       creatorUserId: '',
@@ -27,7 +29,7 @@ export class AddChatComponent implements OnInit, OnDestroy {
       this.model.creatorUserId = this.userId;
       this.addChatSubscription = this.chatService.addChat(this.model).subscribe({
         next: (response) => {
-          console.log(response);
+          this.router.navigateByUrl(`${this.userId}`);
         }
       })
     }

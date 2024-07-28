@@ -14,7 +14,7 @@
         *ngIf="
           userId &&
           !chat.participantIds.includes(userId) &&
-          chat.creatorUserId != userId
+          chat.creatorUserId == userId
         "
       >
         <td>{{ chat.chatName }}</td>
@@ -22,8 +22,8 @@
         <td>{{ chat.participantIds.length }}</td>
         <td>{{ chat.messageIds.length }}</td>
         <td>
-          <button type="button" class="btn btn-light" (click)="joinChat(chat)">
-            Join
+          <button type="button" class="btn btn-light" (click)="viewChat(chat)">
+            View
           </button>
         </td>
       </tr>

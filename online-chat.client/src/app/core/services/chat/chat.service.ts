@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddChatRequest } from 'src/app/shared/models/chat/add-chat-request.model';
-import { ChatWithCreator } from 'src/app/shared/models/chat/chat-with-creator.model';
+import { AddUserToChatRequest } from 'src/app/shared/models/chat/add-user-to-chat-request.model';
 import { Chat } from 'src/app/shared/models/chat/chat.model';
+import { RemoveUserFromChatRequest } from 'src/app/shared/models/chat/remove-user-from-chat-request.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -20,7 +21,11 @@ export class ChatService {
     return this.http.get<Chat[]>(`${environment.apiBaseUrl}/api/chats`);
   }
 
-  getAllChatsWithCreators(): Observable<ChatWithCreator[]> {
-    return this.http.get<ChatWithCreator[]>(`${environment.apiBaseUrl}/api/chats/with-creators`);
+  addUserToChat(chatId: string, model: AddUserToChatRequest): Observable<void> {
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/chats/${chatId}/addUser`, model);
+  }
+
+  removeUserFromChat(chatId: string, model: RemoveUserFromChatRequest): Observable<void> {
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/chats/${chatId}/removeUser`, model);
   }
 }

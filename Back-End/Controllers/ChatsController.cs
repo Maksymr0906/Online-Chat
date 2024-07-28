@@ -71,16 +71,18 @@ namespace OnlineChat.Controllers
             return Ok(response);
         }
 
-        [HttpGet("with-creators")]
-        public async Task<IActionResult> GetChatsWithCreators()
+        [HttpPost("{chatId}/addUser")]
+        public async Task<IActionResult> AddUserToChat([FromRoute] Guid chatId, [FromBody] AddUserToChatRequestDto request)
         {
-            var response = await _service.GetChatsWithCreatorAsync();
-            if (response.Count == 0)
-            {
-                return NotFound();
-            }
+            await _service.AddUserToChatAsync(chatId, request);
+            return NoContent();
+        }
 
-            return Ok(response);
+        [HttpPost("{chatId}/removeUser")]
+        public async Task<IActionResult> RemoveUserFromChat([FromRoute]  Guid chatId, [FromBody] RemoveUserFromChatRequestDto request)
+        {
+            await _service.RemoveUserFromChatAsync(chatId, request);
+            return NoContent();
         }
     }
 }

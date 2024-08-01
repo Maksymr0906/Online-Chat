@@ -12,6 +12,7 @@ import { ChatRoomComponent } from './features/chat/chat-room/chat-room.component
 import { MessageComponent } from './features/message/message/message.component';
 import { CreatedChatsListComponent } from './features/chat/created-chats-list/created-chats-list.component';
 import { ParticipatingChatsListComponent } from './features/chat/participating-chats-list/participating-chats-list.component';
+import { NavbarComponent } from './core/components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ParticipatingChatsListComponent } from './features/chat/participating-c
     MessageComponent,
     CreatedChatsListComponent,
     ParticipatingChatsListComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

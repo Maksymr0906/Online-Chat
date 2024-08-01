@@ -24,3 +24,23 @@
 .message-content {
   font-size: 14px;
 }
+
+.message-container {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.current-user {
+  background-color: blue;
+  color: white;
+  align-self: flex-end;
+}
+
+.other-user {
+  background-color: white;
+  color: black;
+  align-self: flex-start;
+}

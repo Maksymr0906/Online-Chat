@@ -34,8 +34,7 @@ namespace OnlineChat.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        [Route("{id:Guid}")]
+        [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetMessageById([FromRoute] Guid id)
         {
             var response = await _service.GetMessageByIdAsync(id);
@@ -64,6 +63,18 @@ namespace OnlineChat.Controllers
         {
             var response = await _service.DeleteMessageByIdAsync(id);
             if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("chat/{chatId:Guid}")]
+        public async Task<IActionResult> GetAllChatMessages([FromRoute] Guid chatId)
+        {
+            var response = await _service.GetAllChatMessages(chatId);
+            if (response.Count == 0)
             {
                 return NotFound();
             }

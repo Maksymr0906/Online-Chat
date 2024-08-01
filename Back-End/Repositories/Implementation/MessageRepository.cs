@@ -58,5 +58,10 @@ namespace OnlineChat.Repositories.Implementation
             await _context.SaveChangesAsync();
             return existingMessage;
         }
+
+        public async Task<ICollection<Message>> GetAllChatMessagesAsync(Guid chatId)
+        {
+            return await _messages.Where(x => x.ChatId == chatId).ToListAsync();
+        }
     }
 }

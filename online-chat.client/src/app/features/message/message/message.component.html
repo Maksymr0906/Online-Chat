@@ -1,9 +1,11 @@
-<div class="message">
-  <div class="message-header">
-    <span class="message-sender">Sender</span>
-    <span class="message-timestamp">Timestamp</span>
-  </div>
-  <div class="message-content">
-    Content
-  </div>
+<div
+  [ngClass]="{
+    'message-container': true,
+    'current-user': isCurrentUser(),
+    'other-user': !isCurrentUser()
+  }"
+>
+  <p><strong>User:</strong> {{ user?.userName }}</p>
+  <p><strong>Content:</strong> {{ message?.content }}</p>
+  <p><strong>Sent Time:</strong> {{ message?.sentTime | date : "short" }}</p>
 </div>

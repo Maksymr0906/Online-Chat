@@ -9,5 +9,6 @@ namespace OnlineChat.Repositories.Interface
         Task<Message?> GetByIdAsync(Guid id);
         Task<Message?> UpdateAsync(Message message);
         Task<Message?> DeleteByIdAsync(Guid id);
+        Task<ICollection<Message>> GetAllChatMessagesAsync(Guid chatId);
     }
 }

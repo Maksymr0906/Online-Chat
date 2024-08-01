@@ -54,5 +54,11 @@ namespace OnlineChat.Services.Implementation
             var message = await _repository.DeleteByIdAsync(id);
             return message != null ? _mapper.Map<MessageDto>(message) : null;
         }
+
+        public async Task<ICollection<MessageDto>> GetAllChatMessages(Guid chatId)
+        {
+            var messages = await _repository.GetAllChatMessagesAsync(chatId);
+            return _mapper.Map<ICollection<MessageDto>>(messages);
+        }
     }
 }

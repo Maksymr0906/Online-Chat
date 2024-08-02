@@ -5,7 +5,9 @@
     'other-user': !isCurrentUser()
   }"
 >
-  <p><strong>User:</strong> {{ user?.userName }}</p>
-  <p><strong>Content:</strong> {{ message?.content }}</p>
-  <p><strong>Sent Time:</strong> {{ message?.sentTime | date : "short" }}</p>
+  <div class="message-header">
+    <p>{{ user?.userName }}</p>
+    <p>{{ message?.sentTime | date : "short" }}</p>
+  </div>
+  <p>{{ message?.content }}</p>
 </div>

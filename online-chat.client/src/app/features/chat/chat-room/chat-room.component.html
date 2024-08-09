@@ -1,8 +1,13 @@
-<div class="container">
-  <ng-container *ngFor="let msg of messages">
-    <div class="mb-2" [ngClass]="getMessageClass(msg.userId)">
-      <app-message [message]="msg"></app-message>
-    </div>
-  </ng-container>
+<div class="container mt-3">
+  <div class="messages-container d-flex flex-column align-items-center">
+    <ng-container *ngFor="let msg of messages">
+      <div
+        class="mb-2 message-container"
+        [ngClass]="getMessageClass(msg.userId)"
+      >
+        <app-message [message]="msg"></app-message>
+      </div>
+    </ng-container>
+  </div>
   <button class="btn btn-primary mt-3" (click)="leaveChat()">Leave</button>
 </div>

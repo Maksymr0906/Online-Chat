@@ -17,13 +17,18 @@
 }
 
 .message-sender {
-  color: #007bff;
+  font-size: 16px;
+  margin: 0px;
+  color: #1e90ff;
 }
 
 .message-timestamp {
-  color: #999;
+  font-size: 11px;
+  margin: 0px;
+  color: #b1b1b1;
 }
 
 .message-content {
+  color: #333333;
   font-size: 14px;
 }

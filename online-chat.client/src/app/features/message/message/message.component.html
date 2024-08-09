@@ -1,7 +1,7 @@
 <div class="message-container">
   <div class="message-header">
-    <p>{{ user?.userName }}</p>
-    <p>{{ message?.sentTime | date : "short" }}</p>
+    <p class="message-sender">{{ user?.userName }}</p>
+    <p class="message-timestamp">{{ message?.sentTime | date : "short" }}</p>
   </div>
-  <p>{{ message?.content }}</p>
+  <p class="message-content">{{ message?.content }}</p>
 </div>

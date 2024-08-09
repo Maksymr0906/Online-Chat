@@ -1,9 +1,12 @@
 /* message.component.css */
-.message {
-  border: 1px solid #ccc;
+.message-container {
   padding: 10px;
-  margin: 10px 0;
+  margin: 5px;
   border-radius: 5px;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
 }
 
 .message-header {
@@ -23,24 +26,4 @@
 
 .message-content {
   font-size: 14px;
-}
-
-.message-container {
-  padding: 10px;
-  margin: 5px;
-  border-radius: 5px;
-  max-width: 70%;
-  word-wrap: break-word;
-}
-
-.current-user {
-  background-color: #e6f7ff;
-  color: #333333;
-  align-self: flex-end;
-}
-
-.other-user {
-  background-color: #ffffff;
-  color: #333333;
-  align-self: flex-start;
 }

@@ -1,0 +1,11 @@
+.current-user-message {
+  background-color: #e6f7ff;
+  color: #333333;
+  align-self: flex-end;
+}
+
+.other-user-message {
+  background-color: #ffffff;
+  color: #333333;
+  align-self: flex-start;
+}

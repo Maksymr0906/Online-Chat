@@ -1,10 +1,4 @@
-<div
-  [ngClass]="{
-    'message-container': true,
-    'current-user': isCurrentUser(),
-    'other-user': !isCurrentUser()
-  }"
->
+<div class="message-container">
   <div class="message-header">
     <p>{{ user?.userName }}</p>
     <p>{{ message?.sentTime | date : "short" }}</p>

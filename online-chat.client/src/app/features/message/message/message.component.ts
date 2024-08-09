@@ -11,10 +11,7 @@ import { User } from 'src/app/shared/models/user/user.model';
 })
 export class MessageComponent implements OnInit, OnDestroy {
   @Input() message?: Message | null;
-  @Input() currentUserId?: string | null;
-  currentUser?: User;
   user?: User;
-  getCurrentUserByIdSubscription?: Subscription;
   getUserByIdSubscription?: Subscription;
 
   constructor(private userService: UserService) {
@@ -22,16 +19,8 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.currentUserId) {
-      this.getCurrentUserByIdSubscription = this.userService.getUserById(this.currentUserId).subscribe({
-        next: (response) => {
-          this.currentUser = response;
-        }
-      })
-    }
-
     if (this.message?.userId) {
-      this.getCurrentUserByIdSubscription = this.userService.getUserById(this.message.userId).subscribe({
+      this.getUserByIdSubscription = this.userService.getUserById(this.message.userId).subscribe({
         next: (response) => {
           this.user = response;
         }
@@ -40,15 +29,6 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy(): void {
-    this.getCurrentUserByIdSubscription?.unsubscribe();
     this.getUserByIdSubscription?.unsubscribe();
-  }
-
-  isCurrentUser(): boolean {
-    if (this.user) {
-      return this.user.id === this.currentUserId;
-    }
-    
-    return false;
   }
 }

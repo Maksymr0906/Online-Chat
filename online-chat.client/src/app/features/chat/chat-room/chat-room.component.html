@@ -1,8 +1,8 @@
 <div class="container">
-  <app-message
-    *ngFor="let msg of messages"
-    [message]="msg"
-    [currentUserId]="userId"
-  ></app-message>
-  <button class="btn btn-primary" (click)="leaveChat()">Leave</button>
+  <ng-container *ngFor="let msg of messages">
+    <div class="mb-2" [ngClass]="getMessageClass(msg.userId)">
+      <app-message [message]="msg"></app-message>
+    </div>
+  </ng-container>
+  <button class="btn btn-primary mt-3" (click)="leaveChat()">Leave</button>
 </div>

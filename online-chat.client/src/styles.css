@@ -1,3 +1,51 @@
 body {
   background-color: #fff2d7;
+  box-sizing: border-box;
+}
+
+.btn-primary {
+  background-color: #f8f9fa !important;
+  border-color: #cccccc !important;
+  color: #333333 !important;
+}
+
+.btn-primary:hover {
+  background-color: #d3d4d5 !important;
+}
+
+.text-primary {
+  color: #333333 !important;
+}
+
+.text-secondary {
+  color: #cccccc !important;
+}
+
+.table-custom {
+  border: 1px solid #009879;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-custom thead tr {
+  background-color: #009879;
+  color: #ffffff;
+}
+
+.table-custom th,
+.table-custom td {
+  padding: 12px 15px;
+}
+
+.table-custom tbody tr {
+  border-bottom: 1px solid #dddddd;
+  color: #333333;
+}
+
+.table-custom tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.table-custom tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
 }

@@ -1,7 +1,12 @@
 .navbar {
-  background-color: #2f3c7e !important;
+  background-color: #009879 !important;
 }
 
 .navbar-brand {
   color: white;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #ffa07a;
 }

@@ -32,11 +32,10 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
       });
     }
   }
+  
   ngOnDestroy(): void {
     this.getAllMessagesSubscription?.unsubscribe();
   }
-
-  
 
   leaveChat() {
     if (this.userId && this.chatId) {
@@ -50,5 +49,11 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
         }
       })
     }
+  }
+
+  getMessageClass(messageUserId: string): string {
+    return messageUserId === this.userId
+      ? 'current-user-message'
+      : 'other-user-message';
   }
 }

@@ -1,6 +1,6 @@
 <ng-container *ngIf="chats$ | async as chats">
-  <table class="table mt-3 table-striped">
-    <thead class="table-light">
+  <table class="table-custom mt-3">
+    <thead>
       <tr>
         <th>Chat name</th>
         <th>Creator</th>
@@ -9,24 +9,30 @@
         <th></th>
       </tr>
     </thead>
-    <tbody *ngFor="let chat of chats">
-      <tr
-        *ngIf="
-          userId &&
-          !chat.participantIds.includes(userId) &&
-          chat.creatorUserId != userId
-        "
-      >
-        <td>{{ chat.chatName }}</td>
-        <td>{{ chat.creatorUserName }}</td>
-        <td>{{ chat.participantIds.length }}</td>
-        <td>{{ chat.messageIds.length }}</td>
-        <td>
-          <button type="button" class="btn btn-light" (click)="joinChat(chat)">
-            Join
-          </button>
-        </td>
-      </tr>
+    <tbody>
+      <ng-container *ngFor="let chat of chats">
+        <tr
+          *ngIf="
+            userId &&
+            !chat.participantIds.includes(userId) &&
+            chat.creatorUserId != userId
+          "
+        >
+          <td>{{ chat.chatName }}</td>
+          <td>{{ chat.creatorUserName }}</td>
+          <td>{{ chat.participantIds.length }}</td>
+          <td>{{ chat.messageIds.length }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-light"
+              (click)="joinChat(chat)"
+            >
+              Join
+            </button>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </ng-container>

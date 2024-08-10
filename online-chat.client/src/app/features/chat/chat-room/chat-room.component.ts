@@ -26,8 +26,9 @@ export class ChatRoomComponent implements OnInit, OnDestroy{
     if (this.chatId) {
       this.getAllMessagesSubscription = this.messageService.getAllChatMessages(this.chatId).subscribe({
         next: (response) => {
-          this.messages = response;
-          console.log(this.messages);
+          this.messages = response.sort((a, b) => {
+            return new Date(a.sentTime).getTime() - new Date(b.sentTime).getTime();
+          });
         }
       });
     }

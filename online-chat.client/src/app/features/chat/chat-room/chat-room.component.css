@@ -20,6 +20,8 @@
   flex-grow: 1;
   overflow-y: auto;
   max-height: 80vh;
+  scrollbar-width: thin;
+  scrollbar-color: #1e90ff #ffffff;
 }
 
 .messages-container::-webkit-scrollbar {

@@ -9,5 +9,13 @@
       </div>
     </ng-container>
   </div>
-  <button class="btn btn-primary mt-3" (click)="leaveChat()">Leave</button>
+  <div class="d-flex mt-2 gap-2">
+    <app-add-message
+      [userId]="userId"
+      [chatId]="chatId"
+      class="flex-grow-1"
+    >
+    </app-add-message>
+    <button class="btn btn-primary" (click)="leaveChat()">Leave</button>
+  </div>
 </div>

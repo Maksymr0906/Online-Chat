@@ -1,0 +1,13 @@
+<form class="d-flex gap-1" (ngSubmit)="onSubmit()" #form="ngForm">
+  <label for="messageInput" class="visually-hidden">Message</label>
+  <input
+    type="text"
+    id="messageInput"
+    class="form-control"
+    name="messageContent"
+    [(ngModel)]="model.content"
+  />
+  <button type="submit" class="btn btn-primary">
+    <i class="bi bi-send"></i>
+  </button>
+</form>

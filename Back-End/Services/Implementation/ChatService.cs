@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using OnlineChat.Models.Domain;
 using OnlineChat.Models.Dto.Chat;
-using OnlineChat.Repositories.Implementation;
 using OnlineChat.Repositories.Interface;
 using OnlineChat.Services.Interface;
 
@@ -58,13 +57,20 @@ namespace OnlineChat.Services.Implementation
             return chat != null ? _mapper.Map<ChatDto>(chat) : null;
         }
 
+        // Consider create new service for 2 methods below.
         public async Task AddUserToChatAsync(Guid chatId, AddUserToChatRequestDto request)
         {
             var chat = await _chatRepository.GetByIdAsync(chatId);
-            if (chat == null) throw new KeyNotFoundException("Chat not found");
+            if (chat == null)
+            {
+                throw new KeyNotFoundException("Chat not found");
+            }
 
             var user = await _userRepository.GetByIdAsync(request.UserId);
-            if (user == null) throw new KeyNotFoundException("User not found");
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
 
             chat.Participants.Add(user);
             await _chatRepository.UpdateAsync(chat);
@@ -73,10 +79,16 @@ namespace OnlineChat.Services.Implementation
         public async Task RemoveUserFromChatAsync(Guid chatId, RemoveUserFromChatRequestDto request)
         {
             var chat = await _chatRepository.GetByIdAsync(chatId);
-            if (chat == null) throw new KeyNotFoundException("Chat not found");
+            if (chat == null)
+            {
+                throw new KeyNotFoundException("Chat not found");
+            }
 
             var user = await _userRepository.GetByIdAsync(request.UserId);
-            if (user == null) throw new KeyNotFoundException("User not found");
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
 
             chat.Participants.Remove(user);
             await _chatRepository.UpdateAsync(chat);

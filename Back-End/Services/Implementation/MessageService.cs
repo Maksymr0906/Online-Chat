@@ -29,6 +29,7 @@ namespace OnlineChat.Services.Implementation
             var messages = await _repository.GetAllAsync();
             return _mapper.Map<ICollection<MessageDto>>(messages);
         }
+
         public async Task<MessageDto?> GetMessageByIdAsync(Guid id)
         {
             var message = await _repository.GetByIdAsync(id);
@@ -55,6 +56,7 @@ namespace OnlineChat.Services.Implementation
             return message != null ? _mapper.Map<MessageDto>(message) : null;
         }
 
+        // Consider renaming the method.
         public async Task<ICollection<MessageDto>> GetAllChatMessages(Guid chatId)
         {
             var messages = await _repository.GetAllChatMessagesAsync(chatId);

@@ -14,25 +14,21 @@ namespace OnlineChat.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure one-to-many relationship between Chat and Message
             modelBuilder.Entity<Chat>()
                 .HasMany(c => c.Messages)
                 .WithOne(m => m.Chat)
                 .HasForeignKey(m => m.ChatId);
 
-            // Configure one-to-many relationship between User and Message
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Messages)
                 .WithOne(m => m.User)
                 .HasForeignKey(m => m.UserId);
 
-            // Configure many-to-many relationship between Chat and User
             modelBuilder.Entity<Chat>()
                 .HasMany(c => c.Participants)
                 .WithMany(u => u.ParticipatingChats)
                 .UsingEntity(j => j.ToTable("ChatParticipants"));
 
-            // Configure one-to-many relationship between User and Chat
             modelBuilder.Entity<User>()
                 .HasMany(u => u.CreatedChats)
                 .WithOne(c => c.User)

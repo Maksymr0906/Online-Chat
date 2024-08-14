@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineChat.Models.Dto.Chat;
-using OnlineChat.Services.Implementation;
 using OnlineChat.Services.Interface;
 
 namespace OnlineChat.Controllers
@@ -71,6 +70,7 @@ namespace OnlineChat.Controllers
             return Ok(response);
         }
 
+        // Consider creating new controller for these 2 methods.
         [HttpPost("{chatId}/addUser")]
         public async Task<IActionResult> AddUserToChat([FromRoute] Guid chatId, [FromBody] AddUserToChatRequestDto request)
         {

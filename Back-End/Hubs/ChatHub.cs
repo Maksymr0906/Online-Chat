@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using OnlineChat.Models.Dto.Message;
-using OnlineChat.Services.Interface;
 
 namespace OnlineChat.Hubs
 {

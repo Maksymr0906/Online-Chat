@@ -1,8 +1,8 @@
-﻿using OnlineChat.Models.Domain;
+﻿using AutoMapper;
+using OnlineChat.Models.Domain;
 using OnlineChat.Models.Dto.User;
 using OnlineChat.Repositories.Interface;
 using OnlineChat.Services.Interface;
-using AutoMapper;
 
 namespace OnlineChat.Services.Implementation
 {

@@ -11,8 +11,10 @@ namespace OnlineChat.Mapping
             CreateMap<CreateMessageRequestDto, Message>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.SentTime, opt => opt.MapFrom(src => DateTime.UtcNow));
+
             CreateMap<UpdateMessageRequestDto, Message>()
                 .ForMember(dest => dest.SentTime, opt => opt.MapFrom(src => DateTime.UtcNow));
+
             CreateMap<Message, MessageDto>();
         }
     }

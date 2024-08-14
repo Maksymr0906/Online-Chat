@@ -1,0 +1,44 @@
+<ng-container *ngIf="chats$ | async as chats; else loading">
+  <table class="table-custom mt-3">
+    <thead>
+      <tr>
+        <th>Chat name</th>
+        <th>Creator</th>
+        <th>Participants</th>
+        <th>Messages</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let chat of chats">
+        <tr *ngIf="filterChat(chat)">
+          <td>{{ chat.chatName }}</td>
+          <td>{{ chat.creatorUserName }}</td>
+          <td>{{ chat.participantIds.length }}</td>
+          <td>{{ chat.messageIds.length }}</td>
+          <td>
+            <button
+              *ngIf="buttonType === 'view'"
+              type="button"
+              class="btn btn-light"
+              (click)="viewChat(chat)"
+            >
+              View
+            </button>
+            <button
+              *ngIf="buttonType === 'join'"
+              type="button"
+              class="btn btn-light"
+              (click)="joinChat(chat)"
+            >
+              Join
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-container>
+<ng-template #loading>
+  <div>Loading chats...</div>
+</ng-template>

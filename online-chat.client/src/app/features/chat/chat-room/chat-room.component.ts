@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/core/services/chat/chat.service';
 import { MessageService } from 'src/app/core/services/message/message.service';
-import { SignalRService } from 'src/app/core/services/signalR/signal-r.service';
+import { SignalRService } from 'src/app/core/services/signal-r/signal-r.service';
 import { RemoveUserFromChatRequest } from 'src/app/shared/models/chat/remove-user-from-chat-request.model';
 import { Message } from 'src/app/shared/models/message/message.model';
 

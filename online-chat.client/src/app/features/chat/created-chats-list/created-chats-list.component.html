@@ -1,40 +1,6 @@
 <div class="container">
-  <ng-container *ngIf="chats$ | async as chats">
-    <table class="table-custom mt-3">
-      <thead>
-        <tr>
-          <th>Chat name</th>
-          <th>Creator</th>
-          <th>Participants</th>
-          <th>Messages</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let chat of chats">
-          <tr
-            *ngIf="
-              userId &&
-              !chat.participantIds.includes(userId) &&
-              chat.creatorUserId == userId
-            "
-          >
-            <td>{{ chat.chatName }}</td>
-            <td>{{ chat.creatorUserName }}</td>
-            <td>{{ chat.participantIds.length }}</td>
-            <td>{{ chat.messageIds.length }}</td>
-            <td>
-              <button
-                type="button"
-                class="btn btn-light"
-                (click)="viewChat(chat)"
-              >
-                View
-              </button>
-            </td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-  </ng-container>
+  <app-chat-table
+    [buttonType]="'view'"
+    [filterType]="'created'"
+  ></app-chat-table>
 </div>

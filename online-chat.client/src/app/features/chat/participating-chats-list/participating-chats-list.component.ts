@@ -9,25 +9,7 @@ import { Chat } from 'src/app/shared/models/chat/chat.model';
   templateUrl: './participating-chats-list.component.html',
   styleUrls: ['./participating-chats-list.component.css']
 })
+
 export class ParticipatingChatsListComponent {
-  chats$?: Observable<Chat[]>;
-  userId: string | null = null;
 
-  constructor(private chatService: ChatService,
-    private route: ActivatedRoute,
-    private router: Router) {
-    this.userId = this.route.snapshot.paramMap.get('userId');
-  }
-
-  ngOnInit(): void {
-    this.chats$ = this.chatService.getAllChats();
-  }
-
-  viewChat(chat: Chat): void {
-    if (this.userId) {
-      if (chat.participantIds.includes(this.userId) && chat.creatorUserId != this.userId) {
-        this.router.navigateByUrl(`${this.userId}/chats/${chat.id}`);
-      } 
-    }
-  }
 }

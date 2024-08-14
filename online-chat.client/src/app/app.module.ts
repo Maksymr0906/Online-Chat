@@ -14,6 +14,7 @@ import { CreatedChatsListComponent } from './features/chat/created-chats-list/cr
 import { ParticipatingChatsListComponent } from './features/chat/participating-chats-list/participating-chats-list.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { AddMessageComponent } from './features/message/add-message/add-message.component';
+import { ChatTableComponent } from './shared/components/chat/chat-table/chat-table.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AddMessageComponent } from './features/message/add-message/add-message.
     ParticipatingChatsListComponent,
     NavbarComponent,
     AddMessageComponent,
+    ChatTableComponent,
   ],
   imports: [
     BrowserModule,

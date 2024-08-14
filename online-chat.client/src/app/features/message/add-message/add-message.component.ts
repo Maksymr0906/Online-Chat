@@ -1,9 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MessageService } from 'src/app/core/services/message/message.service';
-import { SignalRService } from 'src/app/core/services/signalR/signal-r.service';
+import { SignalRService } from 'src/app/core/services/signal-r/signal-r.service';
 import { AddMessageRequest } from 'src/app/shared/models/message/add-message-request.model';
-import { Message } from 'src/app/shared/models/message/message.model';
 
 @Component({
   selector: 'app-add-message',

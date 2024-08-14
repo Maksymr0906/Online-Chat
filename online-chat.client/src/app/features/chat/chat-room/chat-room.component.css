@@ -19,7 +19,7 @@
 .messages-container {
   flex-grow: 1;
   overflow-y: auto;
-  max-height: 80vh;
+  height: 80vh;
   scrollbar-width: thin;
   scrollbar-color: #1e90ff #ffffff;
 }

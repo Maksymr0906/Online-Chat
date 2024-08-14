@@ -5,11 +5,22 @@ using OnlineChat.Repositories.Interface;
 using OnlineChat.Services.Implementation;
 using OnlineChat.Services.Interface;
 using OnlineChat.Mapping;
+using OnlineChat.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllHeaders",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+        });
+});
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -32,7 +43,6 @@ builder.Services.AddDbContext<ChatDbContext>(options =>
     var serverVersion = new MySqlServerVersion(new Version(8, 3, 0));
     options.UseMySql(builder.Configuration.GetConnectionString("OnlineChatConnectionString"), serverVersion);
 });
-builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -45,15 +55,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(options =>
 {
-    options.AllowAnyHeader();
     options.AllowAnyOrigin();
+    options.AllowAnyHeader();
     options.AllowAnyMethod();
 });
 
 app.UseHttpsRedirection();
 
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();

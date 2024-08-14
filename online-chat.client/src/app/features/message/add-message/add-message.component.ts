@@ -1,7 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MessageService } from 'src/app/core/services/message/message.service';
+import { SignalRService } from 'src/app/core/services/signalR/signal-r.service';
 import { AddMessageRequest } from 'src/app/shared/models/message/add-message-request.model';
+import { Message } from 'src/app/shared/models/message/message.model';
 
 @Component({
   selector: 'app-add-message',
@@ -14,8 +16,8 @@ export class AddMessageComponent implements OnInit, OnDestroy {
 
   model: AddMessageRequest;
   addMessageSubscription?: Subscription;
-
-  constructor(private messageService: MessageService) {
+  
+  constructor(private messageService: MessageService, private signalrService: SignalRService) {
     this.model = {
       content: '',
       userId: this.userId ?? '',
@@ -28,7 +30,7 @@ export class AddMessageComponent implements OnInit, OnDestroy {
     if (this.userId && this.chatId) {
       this.model.userId = this.userId;
       this.model.chatId = this.chatId;
-    }
+     }
   }
 
   onSubmit() {
@@ -38,6 +40,7 @@ export class AddMessageComponent implements OnInit, OnDestroy {
       this.addMessageSubscription = this.messageService.addMessage(this.model).subscribe({
         next: (response) => {
           this.model.content = '';
+          this.signalrService.sendMessage(response);
         }
       });
     }

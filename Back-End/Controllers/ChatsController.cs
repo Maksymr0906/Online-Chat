@@ -70,7 +70,6 @@ namespace OnlineChat.Controllers
             return Ok(response);
         }
 
-        // Consider creating new controller for these 2 methods.
         [HttpPost("{chatId}/addUser")]
         public async Task<IActionResult> AddUserToChat([FromRoute] Guid chatId, [FromBody] AddUserToChatRequestDto request)
         {

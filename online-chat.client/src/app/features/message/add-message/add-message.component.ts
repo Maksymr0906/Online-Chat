@@ -13,39 +13,38 @@ export class AddMessageComponent implements OnInit, OnDestroy {
   @Input() userId?: string | null;
   @Input() chatId?: string | null;
 
-  model: AddMessageRequest;
-  addMessageSubscription?: Subscription;
-  
-  constructor(private messageService: MessageService, private signalrService: SignalRService) {
-    this.model = {
+  model: AddMessageRequest = {
       content: '',
       userId: this.userId ?? '',
       chatId: this.chatId ?? '',
-      sentTime: new Date(),
-    };
+      sentTime: '',
+  };
+  addMessageSubscription?: Subscription;
+  
+  constructor(private messageService: MessageService, private signalrService: SignalRService) {
   }
 
-   ngOnInit(): void {
-    if (this.userId && this.chatId) {
+  ngOnInit(): void {
+     if (this.userId) {
       this.model.userId = this.userId;
+     }
+     if (this.chatId) {
       this.model.chatId = this.chatId;
      }
   }
 
-  onSubmit() {
-    if (this.model.content && this.userId && this.chatId) {
-      this.model.sentTime = new Date();
-    
-      this.addMessageSubscription = this.messageService.addMessage(this.model).subscribe({
-        next: (response) => {
-          this.model.content = '';
-          this.signalrService.sendMessage(response);
-        }
-      });
-    }
-  }
-  
   ngOnDestroy(): void {
     this.addMessageSubscription?.unsubscribe();
+  }
+
+  onSubmit() {
+    if (this.model.content && this.userId && this.chatId) {
+      this.model.sentTime = new Date().toLocaleString();
+
+      this.addMessageSubscription = this.messageService.addMessage(this.model).subscribe(newMessage => {
+        this.model.content = '';
+        this.signalrService.sendMessage(newMessage);
+      })
+    }
   }
 }

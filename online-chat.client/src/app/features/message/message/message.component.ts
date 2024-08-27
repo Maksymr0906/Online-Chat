@@ -11,19 +11,17 @@ import { User } from 'src/app/shared/models/user/user.model';
 })
 export class MessageComponent implements OnInit, OnDestroy {
   @Input() message?: Message | null;
+  
   user?: User;
   getUserByIdSubscription?: Subscription;
 
   constructor(private userService: UserService) {
-    
   }
 
   ngOnInit(): void {
     if (this.message?.userId) {
-      this.getUserByIdSubscription = this.userService.getUserById(this.message.userId).subscribe({
-        next: (response) => {
-          this.user = response;
-        }
+      this.getUserByIdSubscription = this.userService.getUserById(this.message.userId).subscribe(user => {
+        this.user = user;
       })
     }
   }

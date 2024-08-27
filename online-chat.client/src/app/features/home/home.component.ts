@@ -10,19 +10,19 @@ import { AddUserRequest } from 'src/app/shared/models/user/add-user-request.mode
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnDestroy {
-  name: string;
+  name: string = '';
   addUserSubscription?: Subscription;
   getUserByNameSubscription?: Subscription;
 
   constructor(private userService: UserService, private router: Router) {
-    this.name = '';
   }
 
   joinChat() {
     this.userService.getUserByName(this.name).subscribe(user => {
       if (user) {
         this.router.navigate([`/${user.id}`]);
-      } else {
+      }
+      else {
         const addUserRequest: AddUserRequest = {
           userName: this.name
         };

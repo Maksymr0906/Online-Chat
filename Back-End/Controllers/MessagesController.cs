@@ -18,7 +18,7 @@ namespace OnlineChat.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMessage([FromBody] CreateMessageRequestDto request)
         {
-            var response =  await _service.CreateMessageAsync(request);
+			var response =  await _service.CreateMessageAsync(request);
             return Ok(response);
         }
 

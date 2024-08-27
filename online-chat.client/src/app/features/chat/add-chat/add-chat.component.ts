@@ -10,28 +10,26 @@ import { AddChatRequest } from 'src/app/shared/models/chat/add-chat-request.mode
   styleUrls: ['./add-chat.component.css']
 })
 export class AddChatComponent implements OnInit, OnDestroy {
-  addChatSubscription?: Subscription;
-  model: AddChatRequest;
+  model: AddChatRequest = {
+      chatName: '',
+      creatorUserId: '',
+      createdTime: new Date(),
+  };
   userId: string | null = null;
+
+  addChatSubscription?: Subscription;
 
   constructor(private chatService: ChatService,
     private route: ActivatedRoute,
     private router: Router) {
-    this.model = {
-      chatName: '',
-      creatorUserId: '',
-      createdTime: new Date(),
-    }
   }
 
   onSubmit() {
     if (this.userId) {
       this.model.creatorUserId = this.userId;
-      this.addChatSubscription = this.chatService.addChat(this.model).subscribe({
-        next: (response) => {
-          this.router.navigateByUrl(`${this.userId}`);
-        }
-      })
+      this.addChatSubscription = this.chatService.addChat(this.model).subscribe(() => {
+        this.router.navigateByUrl(`${this.userId}`);
+      });
     }
   }
 

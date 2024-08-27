@@ -20,8 +20,7 @@ export class ChatTableComponent implements OnInit, OnDestroy {
 
   constructor(private chatService: ChatService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {
+    private router: Router) {
     this.userId = this.route.snapshot.paramMap.get('userId');
   }
 
@@ -71,10 +70,8 @@ export class ChatTableComponent implements OnInit, OnDestroy {
           userId: this.userId
         };
 
-        this.joinChatSubscription = this.chatService.addUserToChat(chat.id, model).subscribe({
-          next: (response) => {
-            this.router.navigateByUrl(`${this.userId}/chats/${chat.id}`);
-          }
+        this.joinChatSubscription = this.chatService.addUserToChat(chat.id, model).subscribe(newUser => {
+          this.router.navigateByUrl(`${this.userId}/chats/${chat.id}`);
         });
       } 
     }

@@ -28,4 +28,8 @@ export class ChatService {
   removeUserFromChat(chatId: string, model: RemoveUserFromChatRequest): Observable<void> {
     return this.http.post<void>(`${environment.apiBaseUrl}/api/chats/${chatId}/removeUser`, model);
   }
+
+  deleteChat(chatId: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiBaseUrl}/api/chats/${chatId}`);
+  }
 }

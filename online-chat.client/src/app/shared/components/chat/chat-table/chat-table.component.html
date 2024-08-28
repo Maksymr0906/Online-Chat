@@ -16,7 +16,7 @@
           <td>{{ chat.creatorUserName }}</td>
           <td>{{ chat.participantIds.length }}</td>
           <td>{{ chat.messageIds.length }}</td>
-          <td>
+          <td class="d-flex gap-3">
             <button
               *ngIf="buttonType === 'view'"
               type="button"
@@ -32,6 +32,14 @@
               (click)="joinChat(chat)"
             >
               Join
+            </button>
+            <button
+              *ngIf="filterType === 'created'"
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteChat(chat)"
+            >
+              Delete
             </button>
           </td>
         </tr>

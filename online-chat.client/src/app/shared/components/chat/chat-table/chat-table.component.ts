@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { ChatService } from 'src/app/core/services/chat/chat.service';
 import { AddUserToChatRequest } from 'src/app/shared/models/chat/add-user-to-chat-request.model';
 import { Chat } from 'src/app/shared/models/chat/chat.model';
@@ -16,7 +16,9 @@ export class ChatTableComponent implements OnInit, OnDestroy {
 
   userId: string | null = null;
   chats$?: Observable<Chat[]>;
+
   joinChatSubscription?: Subscription;
+  deleteChatSubscription?: Subscription;
 
   constructor(private chatService: ChatService,
     private route: ActivatedRoute,
@@ -30,6 +32,7 @@ export class ChatTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.joinChatSubscription?.unsubscribe();
+    this.deleteChatSubscription?.unsubscribe();
   }
 
   filterChat(chat: Chat): boolean {
@@ -52,7 +55,7 @@ export class ChatTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  viewChat(chat: Chat): void {
+  viewChat(chat: Chat) {
     if (this.userId) {
       if (chat.participantIds.includes(this.userId) && chat.creatorUserId != this.userId) {
         this.router.navigateByUrl(`${this.userId}/chats/${chat.id}`);
@@ -63,7 +66,7 @@ export class ChatTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  joinChat(chat: Chat): void {
+  joinChat(chat: Chat) {
     if (this.userId) {
       if (!chat.participantIds.includes(this.userId) && chat.creatorUserId != this.userId) {
         const model: AddUserToChatRequest = {
@@ -74,6 +77,20 @@ export class ChatTableComponent implements OnInit, OnDestroy {
           this.router.navigateByUrl(`${this.userId}/chats/${chat.id}`);
         });
       } 
+    }
+  }
+
+  deleteChat(chat: Chat) {
+    if (this.userId) {
+      if (chat.creatorUserId == this.userId) {
+        this.deleteChatSubscription = this.chatService.deleteChat(chat.id).subscribe(() => {
+          if (this.chats$) {
+            this.chats$ = this.chats$.pipe(
+              map(chats => chats.filter(c => c.id !== chat.id))
+            );
+          }
+        });
+      }
     }
   }
 }

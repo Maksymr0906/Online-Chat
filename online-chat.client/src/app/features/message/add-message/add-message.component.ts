@@ -42,8 +42,8 @@ export class AddMessageComponent implements OnInit, OnDestroy {
       this.model.sentTime = new Date().toLocaleString();
 
       this.addMessageSubscription = this.messageService.addMessage(this.model).subscribe(newMessage => {
-        this.model.content = '';
         this.signalrService.sendMessage(newMessage);
+        this.model.content = '';
       })
     }
   }

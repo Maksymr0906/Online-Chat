@@ -17,7 +17,7 @@ export class HomeComponent implements OnDestroy {
   constructor(private userService: UserService, private router: Router) {
   }
 
-  joinChat() {
+  exploreChats() {
     this.userService.getUserByName(this.name).subscribe(user => {
       if (user) {
         this.router.navigate([`/${user.id}`]);
